@@ -29,7 +29,8 @@ const blank = window.location.href.substr(0, window.location.href.lastIndexOf("/
 var imageNum;
 var memorizeTime;
 var recallTime;
-var timeUsed;
+var memorizeTimeUsed;
+var recallTimeUsed;
 var counting;
 var images;
 var memorizeCurr;
@@ -83,7 +84,7 @@ function startGame() {
 function memorizeCountDown(t) {
   countBlock.removeAttribute("hidden");
   countText.innerHTML = "memorization starts in: ";
-  countNum.innerHTML = t--;
+  countNum.innerHTML = (t--).toString() + " s";
   skipButton.onclick = function () {
     clearInterval(counting);
     memorizing();
@@ -93,7 +94,7 @@ function memorizeCountDown(t) {
       skipButton.onclick();
       return;
     }
-    countNum.innerHTML = t--;
+    countNum.innerHTML = (t--).toString() + " s";
   }, 1000);
   document.onkeydown = function (e) {
     if (e.code == "Enter") {
@@ -119,20 +120,20 @@ function memorizeCountDown(t) {
 function memorizing() {
   memorizeBlock.removeAttribute("hidden");
   countText.innerHTML = "time left: ";
-  countNum.innerHTML = memorizeTime--;
+  countNum.innerHTML = (memorizeTime--).toString() + " s";
   skipButton.onclick = function () {
     memorizeBlock.hidden = "true";
     clearInterval(counting);
     recallCountDown(10);
   };
-  timeUsed = 0;
+  memorizeTimeUsed = 0;
   counting = setInterval(function () {
-    timeUsed++;
+    memorizeTimeUsed++;
     if (memorizeTime == 0) {
       skipButton.onclick();
       return;
     }
-    countNum.innerHTML = memorizeTime--;
+    countNum.innerHTML = (memorizeTime--).toString() + " s";
   }, 1000);
   document.onkeydown = function (e) {
     switch (e.code) {
@@ -159,7 +160,7 @@ function memorizing() {
 }
 function recallCountDown(t) {
   countText.innerHTML = "recall starts in: ";
-  countNum.innerHTML = t--;
+  countNum.innerHTML = (t--).toString() + " s";
   skipButton.onclick = function () {
     clearInterval(counting);
     recalling();
@@ -169,7 +170,7 @@ function recallCountDown(t) {
       skipButton.onclick();
       return;
     }
-    countNum.innerHTML = t--;
+    countNum.innerHTML = (t--).toString() + " s";
   }, 1000);
   document.onkeydown = function (e) {
     if (e.code == "Enter") {
@@ -211,19 +212,21 @@ function recallCountDown(t) {
 function recalling() {
   recallBlock.removeAttribute("hidden");
   countText.innerHTML = "time left: ";
-  countNum.innerHTML = recallTime--;
+  countNum.innerHTML = (recallTime--).toString() + " s";
   skipButton.onclick = function () {
     recallBlock.hidden = "true";
     countBlock.hidden = "true";
     clearInterval(counting);
     result();
   };
+  recallTimeUsed = 0;
   counting = setInterval(function () {
+    recallTimeUsed++;
     if (recallTime == 0) {
       skipButton.onclick();
       return;
     }
-    countNum.innerHTML = recallTime--;
+    countNum.innerHTML = (recallTime--).toString() + " s";
   }, 1000);
   document.onkeydown = function (e) {
     if (e.code == "Enter") {
@@ -258,7 +261,7 @@ function result() {
   for (let i = 0; i < imageNum; i++) {
     score += imagesTo[i].userOrder == i ? 1 : 0;
   }
-  resultInformation.innerHTML = `time used: ${timeUsed} seconds<br>score: ${score}<br>percentage: ${(score / imageNum * 100).toFixed(0)} %`;
+  resultInformation.innerHTML = `<br>time used: ${memorizeTimeUsed} / ${recallTimeUsed} s<br><br>score: ${score}<br><br>percentage: ${(score / imageNum * 100).toFixed(0)} %`;
   document.onkeydown = function (e) {
     if (e.code == "Enter") {
       ready();
