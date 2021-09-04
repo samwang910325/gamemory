@@ -25,13 +25,13 @@ const imageMargin = 3;
 const unfocusBorderStyle = "1px solid black";
 const focusBorderStyle = "1px solid lightgreen";
 const wrongBorderStyle = "1px solid red";
-const blank = window.location.href.substr(0, window.location.href.lastIndexOf("/")) + "/pic/white.jpg";
+const blank = window.location.href.substr(0, window.location.href.lastIndexOf("/")) + "/image_pic/white.jpg";
 var imageNum;
 var memorizeTime;
 var recallTime;
 var timeUsed;
 var counting;
-var seeds;
+var images;
 var memorizeCurr;
 var memorizeImages;
 var imagesTo;
@@ -44,7 +44,6 @@ memorizeCurrentImage.style.border = unfocusBorderStyle;
 recallCurrentImage.height = bigImageSize;
 recallCurrentImage.width = bigImageSize;
 recallCurrentImage.style.border = unfocusBorderStyle;
-
 ready();
 function ready() {
   inputBlock.removeAttribute("hidden");
@@ -63,15 +62,22 @@ function startGame() {
     alert("wrong input format!");
     return;
   }
-  inputBlock.hidden = "true";
-  seeds = [];
-  for (let i = 0; i < imageNum; i++) {
-    let currSeed = "";
-    for (let j = 0; j < 10; j++) {
-      currSeed += String.fromCharCode((Math.random() < 0.5 ? "a".charCodeAt(0) : "A".charCodeAt(0)) + Math.floor(Math.random() * 26))
-    }
-    seeds.push(currSeed);
+  if (imageNum > totalImage) {
+    alert("too many images!");
+    return;
   }
+  images = [Math.floor(Math.random() * totalImage)];
+  for (let i = 1; i < imageNum; i++) {
+    images.push(Math.floor(Math.random() * totalImage));
+    for (let j = 0; j < i; j++) {
+      if (images[i] == images[j]) {
+        images.pop();
+        i--;
+        break;
+      }
+    }
+  }
+  inputBlock.hidden = "true";
   memorizeCountDown(3);
 }
 function memorizeCountDown(t) {
@@ -100,14 +106,14 @@ function memorizeCountDown(t) {
     if (i > 0 && i % 30 == 0) {
       allImages.innerHTML += "<br>";
     }
-    allImages.innerHTML += `<img src="https://picsum.photos/seed/${seeds[i]}/${bigImageSize}" height="${tinyImageSize}" 
+    allImages.innerHTML += `<img src="image_pic/${images[i]}.jpg" alt="error" height="${tinyImageSize}" 
       width="${tinyImageSize}" id="${i}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="memorizeHoverImage(parseInt(this.id));">`;
   }
   for (let i = 0; i < imageNum; i++) {
     memorizeImages.push(document.getElementById(`${i}`));
   }
   memorizeFocus(memorizeImages[0]);
-  memorizeCurrentImage.src = `https://picsum.photos/seed/${seeds[0]}/${bigImageSize}`;
+  memorizeCurrentImage.src = `image_pic/${images[0]}.jpg`;
   memorizeCurr = 0;
 }
 function memorizing() {
@@ -189,9 +195,9 @@ function recallCountDown(t) {
       selectTo.innerHTML += "<br>";
       selectFrom.innerHTML += "<br>";
     }
-    selectTo.innerHTML += `<img src=${blank} height="${mediumImageSize}" width="${mediumImageSize}" id="${i}-to" 
+    selectTo.innerHTML += `<img src=${blank} alt="error" height="${mediumImageSize}" width="${mediumImageSize}" id="${i}-to" 
       style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesTo, parseInt(this.id));" onclick="clickTo(parseInt(this.id));">`;
-    selectFrom.innerHTML += `<img src="https://picsum.photos/seed/${seeds[showOrder[i]]}/${bigImageSize}" height="${mediumImageSize}" width="${mediumImageSize}" 
+    selectFrom.innerHTML += `<img src="image_pic/${images[showOrder[i]]}.jpg" alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
       id="${i}-from" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesFrom, parseInt(this.id))" onclick="clickFrom(parseInt(this.id))">`;
   }
   for (let i = 0; i < imageNum; i++) {
@@ -233,19 +239,19 @@ function result() {
     if (i > 0 && i % 10 == 0) {
       resultImage.innerHTML += "<br>";
       for (let j = i - 10; j < i; j++) {
-        let s = `https://picsum.photos/seed/${seeds[imagesTo[j].userOrder]}/${bigImageSize}`;
-        resultImage.innerHTML += `<img src=${imagesTo[j].userOrder == undefined ? blank : s} height="${mediumImageSize}" 
+        let s = `image_pic/${images[imagesTo[j].userOrder]}.jpg`;
+        resultImage.innerHTML += `<img src=${imagesTo[j].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
           width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[j].userOrder == j ? focusBorderStyle : wrongBorderStyle}">`;
       }
       resultImage.innerHTML += "<br><br><br><br>";
     }
-    resultImage.innerHTML += `<img src="https://picsum.photos/seed/${seeds[i]}/${bigImageSize}" height="${mediumImageSize}" 
+    resultImage.innerHTML += `<img src="image_pic/${images[i]}.jpg" alt="error" height="${mediumImageSize}" 
       width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}">`;
   }
   resultImage.innerHTML += "<br>";
   for (let j = Math.floor((i - 1) / 10) * 10; j < i; j++) {
-    let s = `https://picsum.photos/seed/${seeds[imagesTo[j].userOrder]}/${bigImageSize}`;
-    resultImage.innerHTML += `<img src=${imagesTo[j].userOrder == undefined ? blank : s} height="${mediumImageSize}" 
+    let s = `image_pic/${images[imagesTo[j].userOrder]}.jpg`;
+    resultImage.innerHTML += `<img src=${imagesTo[j].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
       width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[j].userOrder == j ? focusBorderStyle : wrongBorderStyle}">`;
   }
   var score = 0;
