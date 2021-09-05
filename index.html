@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" style="height: 100%;">
 
 <head>
   <meta charset="UTF-8">
   <title>Welcome to gamemory - image</title>
   <style>
+    #wrap {
+      min-height: calc(100% - 45px);
+      overflow:auto;
+    }
+
     .enter-button {
       background-color: rgb(51, 204, 51);
     }
@@ -46,58 +51,63 @@
   </style>
 </head>
 
-<body style="font-size: 26px;">
-  <div id="input-block" style="text-align: center;">
-    <br>
-    <div style="text-align: left; display: inline-block;">
-      <label>images to memorize:</label>
-      <br><br>
-      <label>maximum memorization time:&nbsp;</label>
-      <br><br>
-      <label>maximum recall time:</label>
-    </div>
-    <div style="display: inline-block;">
-      <input type="text" id="image-num" value="20">
-      <br><br>
-      <input type="text" id="memorize-time" value="60">
-      <br><br>
-      <input type="text" id="recall-time" value="120">
-    </div>
-    <br><br>
-    <button id="start-button" class="enter-button" onclick="startGame();" style="padding: 10px 32px;">start</button>
-  </div>
-  <div id="count-block" style="text-align: center; display: none;">
-    <span id="count-text"></span>
-    <button id="skip-button" class="enter-button" style="padding: 3px 8px;">skip</button>
-  </div>
-  <div id="memorize-block" style="text-align: center; display: none;">
-    <button onclick="firstImage();" class="switch-button">&lt;&lt;</button>
-    <button onclick="prevImage();" class="switch-button">&lt;</button>
-    <img id="memorize-current-image" style="vertical-align: middle;">
-    <button onclick="nextImage();" class="switch-button">&gt;</button>
-    <button onclick="lastImage();" class="switch-button">&gt;&gt;</button>
-    <div>
-      <div id="all-images" style="text-align: left; display: inline-block;"></div>
-    </div>
-  </div>
-  <div id="recall-block" style="display: none;">
-    <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
-      <div id="select-to" style="text-align: left; display: inline-block;"></div>
-      <br><br><br>
-      <div id="select-from" style="text-align: left; display: inline-block;"></div>
-    </div>
-    <div style="text-align: left; vertical-align: top; flex: 1;"><img id="recall-current-image"></div>
-  </div>
-  <div id="result-block" style="text-align: center; display: none;">
-    <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
-      <div id="result-image" style="text-align: left; display: inline-block;"></div>
-    </div>
-    <div style="text-align: left; vertical-align: top; flex: 1;">
-      <div id="result-information"></div>
+<body style="font-size: 26px; height: 100%;">
+  <div id="wrap">
+    <div id="input-block" style="text-align: center;">
       <br>
-      <button id="retry-button" class="enter-button" onclick="ready();" style="padding: 10px 32px;">retry</button>
+      <div style="text-align: left; display: inline-block;">
+        <label>images to memorize:</label>
+        <br><br>
+        <label>maximum memorization time:&nbsp;</label>
+        <br><br>
+        <label>maximum recall time:</label>
+      </div>
+      <div style="display: inline-block;">
+        <input type="text" id="image-num" value="20">
+        <br><br>
+        <input type="text" id="memorize-time" value="60">
+        <br><br>
+        <input type="text" id="recall-time" value="120">
+      </div>
+      <br><br>
+      <button id="start-button" class="enter-button" onclick="startGame();" style="padding: 10px 32px;">start</button>
+    </div>
+    <div id="count-block" style="text-align: center; display: none;">
+      <span id="count-text"></span>
+      <button id="skip-button" class="enter-button" style="padding: 3px 8px;">skip</button>
+    </div>
+    <div id="memorize-block" style="text-align: center; display: none;">
+      <button onclick="firstImage();" class="switch-button">&lt;&lt;</button>
+      <button onclick="prevImage();" class="switch-button">&lt;</button>
+      <img id="memorize-current-image" style="vertical-align: middle;">
+      <button onclick="nextImage();" class="switch-button">&gt;</button>
+      <button onclick="lastImage();" class="switch-button">&gt;&gt;</button>
+      <div>
+        <div id="all-images" style="text-align: left; display: inline-block;"></div>
+      </div>
+    </div>
+    <div id="recall-block" style="display: none;">
+      <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
+        <div id="select-to" style="text-align: left; display: inline-block;"></div>
+        <br><br><br>
+        <div id="select-from" style="text-align: left; display: inline-block;"></div>
+      </div>
+      <div style="text-align: left; vertical-align: top; flex: 1;"><img id="recall-current-image"></div>
+    </div>
+    <div id="result-block" style="text-align: center; display: none;">
+      <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
+        <div id="result-image" style="text-align: left; display: inline-block;"></div>
+      </div>
+      <div style="text-align: left; vertical-align: top; flex: 1;">
+        <div id="result-information"></div>
+        <br>
+        <button id="retry-button" class="enter-button" onclick="ready();" style="padding: 10px 32px;">retry</button>
+      </div>
     </div>
   </div>
+  <footer>
+    images sources: <a href="https://picsum.photos">picsum</a>, <a href="https://unsplash.com/data">unsplash</a>
+  </footer>
 </body>
 <script src="image.js"></script>
 
