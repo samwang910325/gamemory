@@ -1,4 +1,4 @@
-const totalImage = 3212;
+const totalImage = 3200;
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
@@ -16,7 +16,7 @@ const resultBlock = document.getElementById("result-block");
 const resultImage = document.getElementById("result-image");
 const resultInformation = document.getElementById("result-information");
 const retryButton = document.getElementById("retry-button");
-const bigImageSize = 350;
+const bigImageSize = 330;
 const mediumImageSize = 100;
 const smallImageSize = 80;
 const tinyImageSize = 35;
@@ -44,6 +44,7 @@ memorizeCurrentImage.style.border = unfocusBorderStyle;
 recallCurrentImage.height = bigImageSize;
 recallCurrentImage.width = bigImageSize;
 recallCurrentImage.style.border = unfocusBorderStyle;
+recallCurrentImage.style.margin = `${imageMargin}px`;
 ready();
 function ready() {
   inputBlock.style.display = "";
@@ -238,7 +239,7 @@ function result() {
   for (let i = 0; i < imageNum; i++) {
     correct += imagesTo[i].userOrder == i ? 1 : 0;
   }
-  resultInformation.innerHTML = `<br>time used: ${memorizeTimeUsed} / ${recallTimeUsed} s<br><br>correct: ${correct}`;
+  resultInformation.innerHTML = `time used: ${memorizeTimeUsed} / ${recallTimeUsed} s<br><br>correct: ${correct}`;
   document.onkeydown = function (e) {
     if (e.code == "Enter") {
       ready();
