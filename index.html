@@ -52,8 +52,7 @@
 
 <body style="font-size: 26px; height: 100%;">
   <div id="wrap">
-    <div id="input-block" style="text-align: center;">
-      <br>
+    <div id="input-block" style="text-align: center; padding-top: 30px;">
       <div style="text-align: left; display: inline-block;">
         <label>images to memorize:</label>
         <br><br>
@@ -71,7 +70,7 @@
       <br><br>
       <button id="start-button" class="enter-button" onclick="startGame();" style="padding: 10px 32px;">start</button>
     </div>
-    <div id="count-block" style="text-align: center; display: none;">
+    <div id="count-block" style="text-align: center; display: none; padding-top: 30px; padding-bottom: 30px">
       <span id="count-text"></span>
       <button id="skip-button" class="enter-button" style="padding: 3px 8px;">skip</button>
     </div>
@@ -86,18 +85,18 @@
       </div>
     </div>
     <div id="recall-block" style="display: none;">
-      <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
+      <div style="text-align: right; flex: 3; display: inline-flexbox;">
         <div id="select-to" style="text-align: left; display: inline-block;"></div>
         <br><br><br>
         <div id="select-from" style="text-align: left; display: inline-block;"></div>
       </div>
-      <div style="text-align: left; vertical-align: top; flex: 1;"><img id="recall-current-image"></div>
+      <div style="text-align: left; flex: 1;"><img id="recall-current-image"></div>
     </div>
-    <div id="result-block" style="text-align: center; display: none;">
-      <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
+    <div id="result-block" style="text-align: center; display: none; padding-top: 30px">
+      <div style="text-align: right; flex: 3; display: inline-flexbox;">
         <div id="result-image" style="text-align: left; display: inline-block;"></div>
       </div>
-      <div style="text-align: left; vertical-align: top; flex: 1;">
+      <div style="text-align: left; flex: 1;">
         <div id="result-information"></div>
         <br>
         <button id="retry-button" class="enter-button" onclick="ready();" style="padding: 10px 32px;">retry</button>
