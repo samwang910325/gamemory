@@ -1,4 +1,4 @@
-const totalImage = 3200;
+const totalImage = 4800;
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
