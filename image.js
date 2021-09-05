@@ -1,4 +1,4 @@
-const totalImage = 988;
+const totalImage = 3212;
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
@@ -16,7 +16,7 @@ const resultBlock = document.getElementById("result-block");
 const resultImage = document.getElementById("result-image");
 const resultInformation = document.getElementById("result-information");
 const retryButton = document.getElementById("retry-button");
-const bigImageSize = 300;
+const bigImageSize = 350;
 const mediumImageSize = 100;
 const smallImageSize = 80;
 const tinyImageSize = 35;
@@ -103,7 +103,8 @@ function memorizeCountDown(t) {
   allImages.innerHTML = "";
   for (let i = 0; i < imageNum; i++) {
     allImages.innerHTML += `<img src="pic/${images[i]}.jpg" alt="error" height="${tinyImageSize}" 
-      width="${tinyImageSize}" id="${i}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="memorizeHoverImage(parseInt(this.id));">`;
+      width="${tinyImageSize}" id="${i}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" 
+      onclick="memorizeChooseImage(parseInt(this.id));" onmouseenter="memorizeChooseImage(parseInt(this.id));">`;
   }
   for (let i = 0; i < imageNum; i++) {
     memorizeImages.push(document.getElementById(`${i}`));
@@ -280,7 +281,7 @@ function nextImage() {
   memorizeFocus(memorizeImages[memorizeCurr]);
   memorizeCurrentImage.src = memorizeImages[memorizeCurr].src;
 }
-function memorizeHoverImage(i) {
+function memorizeChooseImage(i) {
   memorizeUnfocus(memorizeImages[memorizeCurr]);
   memorizeCurr = i;
   memorizeFocus(memorizeImages[memorizeCurr]);
