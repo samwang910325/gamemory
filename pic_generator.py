@@ -4,7 +4,7 @@ import sys
 
 #picsum
 skip = 0
-for i in range(2):
+for i in range(1100):
     try:
         Image.open(requests.get("https://picsum.photos/id/" + str(i) + "/1000", stream=True).raw).save("pic/" + str(i - skip) + ".jpg")
     except:
