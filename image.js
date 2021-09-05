@@ -1,4 +1,5 @@
-const totalImage = 4800;
+const totalImage = 8700;
+const pic_path = "pic/";
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
@@ -24,8 +25,7 @@ const imageMargin = 2;
 const unfocusBorderStyle = "2px solid black";
 const focusBorderStyle = "2px solid lightgreen";
 const wrongBorderStyle = "2px solid red";
-const pic_path = "pic/";
-const blank = `${window.location.href.substr(0, window.location.href.lastIndexOf("/"))}/${pic_path}blank.jpg`;
+const blank = `${window.location.href.substr(0, window.location.href.lastIndexOf("/"))}/blank.jpg`;
 var imageNum;
 var memorizeTime;
 var recallTime;
