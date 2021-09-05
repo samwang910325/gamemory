@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewpoert" content="width=device-width, initail-scale=1.0">
   <title>Welcome to gamemory - image</title>
   <style>
     .enter-button {
@@ -15,7 +16,8 @@
 
     .switch-button {
       background-color: white;
-      border: 1px solid black;
+      border: 2px solid black;
+      padding: 10px 15px;
     }
 
     .switch-button:active {
@@ -23,7 +25,7 @@
     }
 
     button {
-      font-size: 20px;
+      font-size: 26px;
       border-radius: 10px;
       border: none;
     }
@@ -33,14 +35,17 @@
     }
 
     input {
-      font-size: 13px;
+      font-size: 20px;
       vertical-align: middle;
-      width: 50px;
+      height: 25px;
+      width: 70px;
+      border: 2px solid black;
+      border-radius: 5px;
     }
   </style>
 </head>
 
-<body style="font-size: 20px;">
+<body style="font-size: 26px;">
   <div id="input-block" style="text-align: center;">
     <br>
     <div style="text-align: left; display: inline-block;">
@@ -58,11 +63,11 @@
       <input type="text" id="recall-time" value="120">
     </div>
     <br><br>
-    <button id="start-button" class="enter-button" onclick="startGame();" style="padding: 12px 36px;">start</button>
+    <button id="start-button" class="enter-button" onclick="startGame();" style="padding: 10px 32px;">start</button>
   </div>
   <div id="count-block" style="text-align: center; display: none;">
     <span id="count-text"></span><span id="count-num"></span>
-    <button id="skip-button" class="enter-button" style="padding: 5px 10px;">skip</button>
+    <button id="skip-button" class="enter-button" style="padding: 3px 8px;">skip</button>
   </div>
   <div id="memorize-block" style="text-align: center; display: none;">
     <button onclick="firstImage();" class="switch-button">&lt;&lt;</button>
@@ -89,7 +94,7 @@
     <div style="text-align: left; vertical-align: top; flex: 1;">
       <div id="result-information"></div>
       <br>
-      <button id="retry-button" class="enter-button" onclick="ready();" style="padding: 12px 36px;">retry</button>
+      <button id="retry-button" class="enter-button" onclick="ready();" style="padding: 10px 32px;">retry</button>
     </div>
   </div>
 </body>
