@@ -3,7 +3,7 @@ import requests
 import sys
 
 f = open("temp.txt", "r")
-count = 2499
+count = 4839
 while True:
     url = f.readline()[:-1]
     if not url:

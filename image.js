@@ -24,7 +24,8 @@ const imageMargin = 2;
 const unfocusBorderStyle = "2px solid black";
 const focusBorderStyle = "2px solid lightgreen";
 const wrongBorderStyle = "2px solid red";
-const blank = window.location.href.substr(0, window.location.href.lastIndexOf("/")) + "/pic/blank.jpg";
+const pic_path = "pic/";
+const blank = `${window.location.href.substr(0, window.location.href.lastIndexOf("/"))}/${pic_path}blank.jpg`;
 var imageNum;
 var memorizeTime;
 var recallTime;
@@ -103,7 +104,7 @@ function memorizeCountDown(t) {
   memorizeImages = [];
   allImages.innerHTML = "";
   for (let i = 0; i < imageNum; i++) {
-    allImages.innerHTML += `<img src="pic/${images[i]}.jpg" alt="error" height="${tinyImageSize}" 
+    allImages.innerHTML += `<img src="${pic_path}${images[i]}.jpg" alt="error" height="${tinyImageSize}" 
       width="${tinyImageSize}" id="${i}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" 
       onclick="memorizeChooseImage(parseInt(this.id));" onmouseenter="memorizeChooseImage(parseInt(this.id));">`;
   }
@@ -111,7 +112,7 @@ function memorizeCountDown(t) {
     memorizeImages.push(document.getElementById(`${i}`));
   }
   memorizeFocus(memorizeImages[0]);
-  memorizeCurrentImage.src = `pic/${images[0]}.jpg`;
+  memorizeCurrentImage.src = `${pic_path}${images[0]}.jpg`;
   memorizeCurr = 0;
 }
 function memorizing() {
@@ -189,7 +190,7 @@ function recallCountDown(t) {
   for (let i = 0; i < imageNum; i++) {
     selectTo.innerHTML += `<img src=${blank} alt="error" height="${mediumImageSize}" width="${mediumImageSize}" id="${i}-to" 
       style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesTo, parseInt(this.id));" onclick="clickTo(parseInt(this.id));">`;
-    selectFrom.innerHTML += `<img src="pic/${images[showOrder[i]]}.jpg" alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
+    selectFrom.innerHTML += `<img src="${pic_path}${images[showOrder[i]]}.jpg" alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
       id="${i}-from" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesFrom, parseInt(this.id))" onclick="clickFrom(parseInt(this.id))">`;
   }
   for (let i = 0; i < imageNum; i++) {
@@ -229,8 +230,8 @@ function result() {
   var i;
   resultImage.innerHTML = "";
   for (i = 0; i < imageNum; i++) {
-    let s = `pic/${images[imagesTo[i].userOrder]}.jpg`;
-    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block;"><img src="pic/${images[i]}.jpg" alt="error" 
+    let s = `${pic_path}${images[imagesTo[i].userOrder]}.jpg`;
+    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block;"><img src="${pic_path}${images[i]}.jpg" alt="error" 
     height="${mediumImageSize}" width="${mediumImageSize}" style="margin: ${imageMargin}px; 
     border: ${unfocusBorderStyle}"><br><img src=${imagesTo[i].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
     width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[i].userOrder == i ? focusBorderStyle : wrongBorderStyle}"></div>`;
