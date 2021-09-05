@@ -21,10 +21,10 @@ const bigImageSize = 300;
 const mediumImageSize = 100;
 const smallImageSize = 80;
 const tinyImageSize = 35;
-const imageMargin = 3;
-const unfocusBorderStyle = "1px solid black";
-const focusBorderStyle = "1px solid lightgreen";
-const wrongBorderStyle = "1px solid red";
+const imageMargin = 2;
+const unfocusBorderStyle = "2px solid black";
+const focusBorderStyle = "2px solid lightgreen";
+const wrongBorderStyle = "2px solid red";
 const blank = window.location.href.substr(0, window.location.href.lastIndexOf("/")) + "/image_pic/white.jpg";
 var imageNum;
 var memorizeTime;
@@ -47,8 +47,8 @@ recallCurrentImage.width = bigImageSize;
 recallCurrentImage.style.border = unfocusBorderStyle;
 ready();
 function ready() {
-  inputBlock.removeAttribute("hidden");
-  resultBlock.hidden = "true";
+  inputBlock.style.display = "";
+  resultBlock.style.display = "none";
   document.onkeydown = function (e) {
     if (e.code == "Enter") {
       startGame();
@@ -78,11 +78,11 @@ function startGame() {
       }
     }
   }
-  inputBlock.hidden = "true";
+  inputBlock.style.display = "none";
   memorizeCountDown(3);
 }
 function memorizeCountDown(t) {
-  countBlock.removeAttribute("hidden");
+  countBlock.style.display = "";
   countText.innerHTML = "memorization starts in: ";
   countNum.innerHTML = (t--).toString() + " s";
   skipButton.onclick = function () {
@@ -104,9 +104,6 @@ function memorizeCountDown(t) {
   memorizeImages = [];
   allImages.innerHTML = "";
   for (let i = 0; i < imageNum; i++) {
-    if (i > 0 && i % 30 == 0) {
-      allImages.innerHTML += "<br>";
-    }
     allImages.innerHTML += `<img src="image_pic/${images[i]}.jpg" alt="error" height="${tinyImageSize}" 
       width="${tinyImageSize}" id="${i}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="memorizeHoverImage(parseInt(this.id));">`;
   }
@@ -118,11 +115,11 @@ function memorizeCountDown(t) {
   memorizeCurr = 0;
 }
 function memorizing() {
-  memorizeBlock.removeAttribute("hidden");
+  memorizeBlock.style.display = "";
   countText.innerHTML = "time left: ";
   countNum.innerHTML = (memorizeTime--).toString() + " s";
   skipButton.onclick = function () {
-    memorizeBlock.hidden = "true";
+    memorizeBlock.style.display = "none";
     clearInterval(counting);
     recallCountDown(10);
   };
@@ -192,10 +189,6 @@ function recallCountDown(t) {
   selectTo.innerHTML = "";
   selectFrom.innerHTML = "";
   for (let i = 0; i < imageNum; i++) {
-    if (i > 0 && i % 10 == 0) {
-      selectTo.innerHTML += "<br>";
-      selectFrom.innerHTML += "<br>";
-    }
     selectTo.innerHTML += `<img src=${blank} alt="error" height="${mediumImageSize}" width="${mediumImageSize}" id="${i}-to" 
       style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesTo, parseInt(this.id));" onclick="clickTo(parseInt(this.id));">`;
     selectFrom.innerHTML += `<img src="image_pic/${images[showOrder[i]]}.jpg" alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
@@ -210,12 +203,12 @@ function recallCountDown(t) {
   recallCurrentImage.src = blank;
 }
 function recalling() {
-  recallBlock.removeAttribute("hidden");
+  recallBlock.style.display = "flex";
   countText.innerHTML = "time left: ";
   countNum.innerHTML = (recallTime--).toString() + " s";
   skipButton.onclick = function () {
-    recallBlock.hidden = "true";
-    countBlock.hidden = "true";
+    recallBlock.style.display = "none";
+    countBlock.style.display = "none";
     clearInterval(counting);
     result();
   };
@@ -235,27 +228,15 @@ function recalling() {
   }
 }
 function result() {
-  resultBlock.removeAttribute("hidden");
+  resultBlock.style.display = "flex";
   var i;
   resultImage.innerHTML = "";
   for (i = 0; i < imageNum; i++) {
-    if (i > 0 && i % 10 == 0) {
-      resultImage.innerHTML += "<br>";
-      for (let j = i - 10; j < i; j++) {
-        let s = `image_pic/${images[imagesTo[j].userOrder]}.jpg`;
-        resultImage.innerHTML += `<img src=${imagesTo[j].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
-          width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[j].userOrder == j ? focusBorderStyle : wrongBorderStyle}">`;
-      }
-      resultImage.innerHTML += "<br><br><br><br>";
-    }
-    resultImage.innerHTML += `<img src="image_pic/${images[i]}.jpg" alt="error" height="${mediumImageSize}" 
-      width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}">`;
-  }
-  resultImage.innerHTML += "<br>";
-  for (let j = Math.floor((i - 1) / 10) * 10; j < i; j++) {
-    let s = `image_pic/${images[imagesTo[j].userOrder]}.jpg`;
-    resultImage.innerHTML += `<img src=${imagesTo[j].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
-      width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[j].userOrder == j ? focusBorderStyle : wrongBorderStyle}">`;
+    let s = `image_pic/${images[imagesTo[i].userOrder]}.jpg`;
+    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block;"><img src="image_pic/${images[i]}.jpg" alt="error" 
+    height="${mediumImageSize}" width="${mediumImageSize}" style="margin: ${imageMargin}px; 
+    border: ${unfocusBorderStyle}"><br><img src=${imagesTo[i].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
+    width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[i].userOrder == i ? focusBorderStyle : wrongBorderStyle}"></div>`;
   }
   var score = 0;
   for (let i = 0; i < imageNum; i++) {

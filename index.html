@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en-US'>
+<html lang="en-US">
 
 <head>
   <meta charset="UTF-8">
@@ -40,7 +40,7 @@
   </style>
 </head>
 
-<body style="font-size: 20px">
+<body style="font-size: 20px;">
   <div id="input-block" style="text-align: center;">
     <br>
     <div style="text-align: left; display: inline-block;">
@@ -60,30 +60,34 @@
     <br><br>
     <button id="start-button" class="enter-button" onclick="startGame();" style="padding: 12px 36px;">start</button>
   </div>
-  <div id="count-block" hidden="true" style="text-align: center;">
+  <div id="count-block" style="text-align: center; display: none;">
     <span id="count-text"></span><span id="count-num"></span>
     <button id="skip-button" class="enter-button" style="padding: 5px 10px;">skip</button>
   </div>
-  <div id="memorize-block" hidden="true" style="text-align: center;">
+  <div id="memorize-block" style="text-align: center; display: none;">
     <button onclick="firstImage();" class="switch-button">&lt;&lt;</button>
     <button onclick="prevImage();" class="switch-button">&lt;</button>
     <img id="memorize-current-image" style="vertical-align: middle;">
     <button onclick="nextImage();" class="switch-button">&gt;</button>
     <button onclick="lastImage();" class="switch-button">&gt;&gt;</button>
-    <div id="all-images"></div>
-  </div>
-  <div id="recall-block" hidden="true" style="text-align: center;">
-    <div style="display: inline-block; vertical-align: top;">
-      <div id="select-to"></div>
-      <br><br><br>
-      <div id="select-from"></div>
+    <div>
+      <div id="all-images" style="text-align: left; display: inline-block;"></div>
     </div>
-    <img id="recall-current-image" style="vertical-align: top;">
   </div>
-  <div id="result-block" hidden="true" style="text-align: center;">
-    <div id="result-image" style="display: inline-block; vertical-align: top;"></div>
-    <div style="display: inline-block; vertical-align: top;">
-      <div id="result-information" style="text-align: left;"></div>
+  <div id="recall-block" style="display: none;">
+    <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
+      <div id="select-to" style="text-align: left; display: inline-block;"></div>
+      <br><br><br>
+      <div id="select-from" style="text-align: left; display: inline-block;"></div>
+    </div>
+    <div style="text-align: left; vertical-align: top; flex: 1;"><img id="recall-current-image"></div>
+  </div>
+  <div id="result-block" style="text-align: center; display: none;">
+    <div style="text-align: right; vertical-align: top; flex: 3; display: inline-flexbox;">
+      <div id="result-image" style="text-align: left; display: inline-block;"></div>
+    </div>
+    <div style="text-align: left; vertical-align: top; flex: 1;">
+      <div id="result-information"></div>
       <br>
       <button id="retry-button" class="enter-button" onclick="ready();" style="padding: 12px 36px;">retry</button>
     </div>
