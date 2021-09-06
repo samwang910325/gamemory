@@ -13,7 +13,7 @@ for i in range(1100):
 print("skip:", skip)
 
 #unsplash
-f = open("url.txt", "r")
+f = open("url.txt", "r")  # https://unsplash.com/data
 count = i + 1 - skip
 while True:
     url = f.readline()[:-1]

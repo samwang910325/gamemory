@@ -1,4 +1,4 @@
-const totalImage = 11440;
+const totalImage = 25940;
 const pic_path = "pic/";
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
