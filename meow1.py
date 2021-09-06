@@ -2,7 +2,7 @@ from PIL import Image
 import requests
 import sys
 
-f = open("temp.txt", "r")
+f = open("meow1.txt", "r")
 count = 12701
 while True:
     url = f.readline()[:-1]
