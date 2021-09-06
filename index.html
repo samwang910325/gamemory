@@ -84,13 +84,15 @@
         <div id="all-images" style="text-align: left; display: inline-block;"></div>
       </div>
     </div>
-    <div id="recall-block" style="display: none;">
-      <div style="text-align: right; flex: 3; display: inline-flexbox;">
-        <div id="select-to" style="text-align: left; display: inline-block;"></div>
+    <div id="recall-block" style="display: none; text-align: center;">
+      <div id="recall-select-wrap" style="text-align: left; display: inline-block;">
+        <div id="select-to"></div>
         <br><br><br>
-        <div id="select-from" style="text-align: left; display: inline-block;"></div>
+        <div id="select-from"></div>
       </div>
-      <div style="text-align: left; flex: 1;"><img id="recall-current-image"></div>
+      <div style="vertical-align: top; display: inline-block;">
+        <img id="recall-current-image">
+      </div>
     </div>
     <div id="result-block" style="text-align: center; display: none; padding-top: 30px">
       <div style="text-align: right; flex: 3; display: inline-flexbox;">
@@ -104,6 +106,10 @@
   </div>
   <footer>
     images sources: <a href="https://picsum.photos">picsum</a>, <a href="https://unsplash.com/data">unsplash</a>
+    <span style="float: right;">
+      <a href="https://github.com/JasonHu1012/gamemory.git">github repo</a>&nbsp;
+      <a href="mailto: jasonhu1012@hotmail.com.tw">contact author</a>
+    </span>
   </footer>
 </body>
 <script src="image.js"></script>

@@ -12,6 +12,7 @@ const allImages = document.getElementById("all-images");
 const recallBlock = document.getElementById("recall-block");
 const selectTo = document.getElementById("select-to");
 const selectFrom = document.getElementById("select-from");
+const recallSelectWrap = document.getElementById("recall-select-wrap");
 const recallCurrentImage = document.getElementById("recall-current-image");
 const resultBlock = document.getElementById("result-block");
 const resultImage = document.getElementById("result-image");
@@ -46,6 +47,7 @@ recallCurrentImage.height = bigImageSize;
 recallCurrentImage.width = bigImageSize;
 recallCurrentImage.style.border = unfocusBorderStyle;
 recallCurrentImage.style.margin = `${imageMargin}px`;
+recallSelectWrap.style.maxWidth = `${document.body.clientWidth - bigImageSize - 2 * imageMargin - 20}px`;
 ready();
 function ready() {
   inputBlock.style.display = "";
@@ -202,7 +204,7 @@ function recallCountDown(t) {
   recallCurrentImage.src = blank;
 }
 function recalling() {
-  recallBlock.style.display = "flex";
+  recallBlock.style.display = "";
   countText.innerHTML = `time left: ${recallTime--} s`;
   skipButton.onclick = function () {
     recallBlock.style.display = "none";
