@@ -1,4 +1,13 @@
-const categoryNum = { animal: 206, festival: 46, food: 376, landscape: 100, school: 52, sport: 104, transportation: 104 };
+const categoryNum = {
+  animal: 206,
+  festival: 46,
+  food: 376,
+  landscape: 100,
+  school: 52,
+  sport: 104,
+  tool: 54,
+  transportation: 104
+};
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
