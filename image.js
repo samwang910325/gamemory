@@ -276,10 +276,10 @@ function result() {
   resultImage.innerHTML = "";
   for (i = 0; i < imageNum; i++) {
     let s = `${images[imagesTo[i].userOrder]}`;
-    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block;"><img src=${images[i]} alt="error" 
-    height="${mediumImageSize}" width="${mediumImageSize}" style="margin: ${imageMargin}px; 
-    border: ${unfocusBorderStyle}"><br><img src=${imagesTo[i].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
-    width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[i].userOrder == i ? focusBorderStyle : wrongBorderStyle}"></div>`;
+    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block; text-align: center"><img src=${images[i]} 
+    alt="error" height="${mediumImageSize}" width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}">
+    <br><img src=${imagesTo[i].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
+    style="margin: ${imageMargin}px; border: ${imagesTo[i].userOrder == i ? focusBorderStyle : wrongBorderStyle}"><br>${i + 1}</div>`;
   }
   var correct = 0;
   for (let i = 0; i < imageNum; i++) {
