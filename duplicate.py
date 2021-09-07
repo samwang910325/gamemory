@@ -3,7 +3,7 @@ import imagehash
 import os
 
 seen = {}
-path = "pic/school/"
+path = "pic/animal/"
 total = int(os.popen("ls " + path + " | wc -l").read())
 i = 0
 while i < total:
