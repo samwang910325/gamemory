@@ -4,7 +4,7 @@ import os
 path_from = "pic/temp/"
 path_to = "pic/tool/"
 allfile = os.listdir(path_from)
-count = 0
+count = int(os.popen("ls " + path_to + " | wc -l").read())
 for i in range(len(allfile)):
     try:
         img = Image.open(path_from + allfile[i])
