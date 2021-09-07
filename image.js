@@ -1,12 +1,13 @@
-const totalImage = 25940;
-const pic_path = "pic/";
+const categoryNum = { animal: 116, food: 103, landscape: 100, sport: 104, transportation: 104 };
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
+const category = document.getElementsByClassName("category");
 const countBlock = document.getElementById("count-block");
 const countText = document.getElementById("count-text");
 const skipButton = document.getElementById("skip-button");
 const memorizeBlock = document.getElementById("memorize-block");
+const memorizeCurrentImageNum = document.getElementById("memorize-current-image-num");
 const memorizeCurrentImage = document.getElementById("memorize-current-image");
 const allImages = document.getElementById("all-images");
 const recallBlock = document.getElementById("recall-block");
@@ -25,7 +26,10 @@ const imageMargin = 2;
 const unfocusBorderStyle = "2px solid black";
 const focusBorderStyle = "2px solid lightgreen";
 const wrongBorderStyle = "2px solid red";
-const blank = `${window.location.href.substr(0, window.location.href.lastIndexOf("/"))}/blank.jpg`;
+const blank = `${window.location.href.substr(0, window.location.href.lastIndexOf("/"))}/pic/blank.jpg`;
+var choosed;
+var accumulation;
+var totalImage;
 var imageNum;
 var memorizeTime;
 var recallTime;
@@ -46,6 +50,9 @@ recallCurrentImage.height = bigImageSize;
 recallCurrentImage.width = bigImageSize;
 recallCurrentImage.style.border = unfocusBorderStyle;
 recallCurrentImage.style.margin = `${imageMargin}px`;
+for (let i of category) {
+  i.checked = true;
+}
 ready();
 function ready() {
   inputBlock.style.display = "";
@@ -64,19 +71,40 @@ function startGame() {
     alert("wrong input format!");
     return;
   }
+  totalImage = 0;
+  choosed = [];
+  accumulation = [];
+  for (let i of category) {
+    if (i.checked) {
+      choosed.push(i.name);
+      accumulation.push(totalImage + categoryNum[i.name]);
+      totalImage += categoryNum[i.name];
+    }
+  }
   if (imageNum > totalImage) {
-    alert("too many images!");
+    alert(`maximum: ${totalImage}`);
     return;
   }
-  images = [Math.floor(Math.random() * totalImage)];
+  var imagesId = [Math.floor(Math.random() * totalImage)];
   for (let i = 1; i < imageNum; i++) {
-    images.push(Math.floor(Math.random() * totalImage));
+    imagesId.push(Math.floor(Math.random() * totalImage));
     for (let j = 0; j < i; j++) {
-      if (images[i] == images[j]) {
-        images.pop();
+      if (imagesId[i] == imagesId[j]) {
+        imagesId.pop();
         i--;
         break;
       }
+    }
+  }
+  images = [];
+  for (let i of imagesId) {
+    let currNum = 0;
+    for (let j = 0; j < accumulation.length; j++) {
+      if (accumulation[j] > i) {
+        images.push(`pic/${choosed[j]}/${i - currNum}.jpg`)
+        break;
+      }
+      currNum = accumulation[j];
     }
   }
   inputBlock.style.display = "none";
@@ -104,7 +132,7 @@ function memorizeCountDown(t) {
   memorizeImages = [];
   allImages.innerHTML = "";
   for (let i = 0; i < imageNum; i++) {
-    allImages.innerHTML += `<img src="${pic_path}${images[i]}.jpg" alt="error" height="${tinyImageSize}" 
+    allImages.innerHTML += `<img src=${images[i]} alt="error" height="${tinyImageSize}" 
       width="${tinyImageSize}" id="${i}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" 
       onclick="memorizeChooseImage(parseInt(this.id));" onmouseenter="memorizeChooseImage(parseInt(this.id));">`;
   }
@@ -112,8 +140,9 @@ function memorizeCountDown(t) {
     memorizeImages.push(document.getElementById(`${i}`));
   }
   memorizeFocus(memorizeImages[0]);
-  memorizeCurrentImage.src = `${pic_path}${images[0]}.jpg`;
+  memorizeCurrentImage.src = `${images[0]}`;
   memorizeCurr = 0;
+  memorizeCurrentImageNum.innerHTML = (memorizeCurr + 1).toString();
 }
 function memorizing() {
   memorizeBlock.style.display = "";
@@ -188,10 +217,12 @@ function recallCountDown(t) {
   selectTo.innerHTML = "";
   selectFrom.innerHTML = "";
   for (let i = 0; i < imageNum; i++) {
-    selectTo.innerHTML += `<img src=${blank} alt="error" height="${mediumImageSize}" width="${mediumImageSize}" id="${i}-to" 
-      style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesTo, parseInt(this.id));" onclick="clickTo(parseInt(this.id));">`;
-    selectFrom.innerHTML += `<img src="${pic_path}${images[showOrder[i]]}.jpg" alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
-      id="${i}-from" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesFrom, parseInt(this.id))" onclick="clickFrom(parseInt(this.id))">`;
+    selectTo.innerHTML += `<div style="text-align: center; display: inline-block;"><img src=${blank} alt="error" height="${mediumImageSize}" 
+    width="${mediumImageSize}" id="${i}-to" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" 
+    onmouseenter="recallHoverImage(imagesTo, parseInt(this.id));" onclick="clickTo(parseInt(this.id));"><br>${i + 1}</div>`;
+    selectFrom.innerHTML += `<img src=${images[showOrder[i]]} alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
+      id="${i}-from" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}" onmouseenter="recallHoverImage(imagesFrom, 
+        parseInt(this.id))" onclick="clickFrom(parseInt(this.id))">`;
   }
   for (let i = 0; i < imageNum; i++) {
     imagesTo.push(document.getElementById(`${i}-to`));
@@ -230,8 +261,8 @@ function result() {
   var i;
   resultImage.innerHTML = "";
   for (i = 0; i < imageNum; i++) {
-    let s = `${pic_path}${images[imagesTo[i].userOrder]}.jpg`;
-    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block;"><img src="${pic_path}${images[i]}.jpg" alt="error" 
+    let s = `${images[imagesTo[i].userOrder]}`;
+    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block;"><img src=${images[i]} alt="error" 
     height="${mediumImageSize}" width="${mediumImageSize}" style="margin: ${imageMargin}px; 
     border: ${unfocusBorderStyle}"><br><img src=${imagesTo[i].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" 
     width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${imagesTo[i].userOrder == i ? focusBorderStyle : wrongBorderStyle}"></div>`;
@@ -260,12 +291,14 @@ function firstImage() {
   memorizeFocus(memorizeImages[0]);
   memorizeCurrentImage.src = memorizeImages[0].src;
   memorizeCurr = 0;
+  memorizeCurrentImageNum.innerHTML = (memorizeCurr + 1).toString();
 }
 function lastImage() {
   memorizeUnfocus(memorizeImages[memorizeCurr]);
   memorizeFocus(memorizeImages[imageNum - 1]);
   memorizeCurrentImage.src = memorizeImages[imageNum - 1].src;
   memorizeCurr = imageNum - 1;
+  memorizeCurrentImageNum.innerHTML = (memorizeCurr + 1).toString();
 }
 function prevImage() {
   if (memorizeCurr == 0) {
@@ -274,6 +307,7 @@ function prevImage() {
   memorizeUnfocus(memorizeImages[memorizeCurr--]);
   memorizeFocus(memorizeImages[memorizeCurr]);
   memorizeCurrentImage.src = memorizeImages[memorizeCurr].src;
+  memorizeCurrentImageNum.innerHTML = (memorizeCurr + 1).toString();
 }
 function nextImage() {
   if (memorizeCurr == imageNum - 1) {
@@ -282,12 +316,14 @@ function nextImage() {
   memorizeUnfocus(memorizeImages[memorizeCurr++]);
   memorizeFocus(memorizeImages[memorizeCurr]);
   memorizeCurrentImage.src = memorizeImages[memorizeCurr].src;
+  memorizeCurrentImageNum.innerHTML = (memorizeCurr + 1).toString();
 }
 function memorizeChooseImage(i) {
   memorizeUnfocus(memorizeImages[memorizeCurr]);
   memorizeCurr = i;
   memorizeFocus(memorizeImages[memorizeCurr]);
   memorizeCurrentImage.src = memorizeImages[memorizeCurr].src;
+  memorizeCurrentImageNum.innerHTML = (memorizeCurr + 1).toString();
 }
 function recallHoverImage(arr, i) {
   if (arr[i].src == blank) {

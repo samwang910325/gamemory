@@ -66,17 +66,39 @@
         <br><br>
         <input type="text" id="recall-time" value="120">
       </div>
-      <br><br>
-      <button id="start-button" class="enter-button" onclick="startGame();" style="padding: 10px 32px;">start</button>
+      <br>
+      <button id="start-button" class="enter-button" onclick="startGame();"
+        style="padding: 10px 32px; margin-top: 25px;">start</button>
+      <br>
+      <div style="text-align: left; display: inline-block;">
+        <div style="margin-top: 20px; margin-bottom: 5px;">category:</div>
+        <div style="margin-top: 10px;">
+          <label><input type="checkbox" class="category" name="animal">animal</span></label>
+        </div>
+        <div style="margin-top: 10px;">
+          <label><input type="checkbox" class="category" name="food">food</span></label>
+        </div>
+        <div style="margin-top: 10px;">
+          <label><input type="checkbox" class="category" name="landscape">landscape</span></label>
+        </div>
+        <div style="margin-top: 10px;">
+          <label><input type="checkbox" class="category" name="sport">sport</span></label>
+        </div>
+        <div style="margin-top: 10px;">
+          <label><input type="checkbox" class="category" name="transportation">transportation</span></label>
+        </div>
+      </div>
     </div>
     <div id="count-block" style="text-align: center; display: none; padding-top: 30px; padding-bottom: 30px">
       <span id="count-text"></span>
       <button id="skip-button" class="enter-button" style="padding: 3px 8px;">skip</button>
     </div>
     <div id="memorize-block" style="text-align: center; display: none;">
+      <img id="memorize-current-image" style="vertical-align: middle;">
+      <br>
       <button onclick="firstImage();" class="switch-button">&lt;&lt;</button>
       <button onclick="prevImage();" class="switch-button">&lt;</button>
-      <img id="memorize-current-image" style="vertical-align: middle;">
+      <div id="memorize-current-image-num" style="width: 60px; display: inline-block;"></div>
       <button onclick="nextImage();" class="switch-button">&gt;</button>
       <button onclick="lastImage();" class="switch-button">&gt;&gt;</button>
       <div>
@@ -86,7 +108,7 @@
     <div id="recall-block" style="display: none;">
       <div style="text-align: center; flex: 3; display: inline-flexbox;">
         <div id="select-to" style="text-align: left; display: inline-block;"></div>
-        <br><br><br>
+        <br><br>
         <div id="select-from" style="text-align: left; display: inline-block;"></div>
       </div>
       <div style="text-align: left; flex: 1;"><img id="recall-current-image"></div>
@@ -102,9 +124,9 @@
     </div>
   </div>
   <footer>
-    images sources: <a href="https://picsum.photos">picsum</a>, <a href="https://unsplash.com/data">unsplash</a>
+    images sources: <a href="https://unsplash.com" target="_blank">unsplash</a>
     <span style="float: right;">
-      <a href="https://github.com/JasonHu1012/gamemory.git">github repo</a>&nbsp;
+      <a href="https://github.com/JasonHu1012/gamemory.git" target="_blank">github repo</a>&nbsp;
       <a href="mailto: jasonhu1012@hotmail.com.tw">contact author</a>
     </span>
   </footer>
