@@ -1,8 +1,8 @@
-const categoryNum = { animal: 116, food: 103, landscape: 100, sport: 104, transportation: 104 };
+const categoryNum = { animal: 116, festival: 46, food: 376, landscape: 100, school: 52, sport: 104, transportation: 104 };
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
-const category = document.getElementsByClassName("category");
+const categorySelect = document.getElementById("category-select");
 const countBlock = document.getElementById("count-block");
 const countText = document.getElementById("count-text");
 const skipButton = document.getElementById("skip-button");
@@ -50,6 +50,11 @@ recallCurrentImage.height = bigImageSize;
 recallCurrentImage.width = bigImageSize;
 recallCurrentImage.style.border = unfocusBorderStyle;
 recallCurrentImage.style.margin = `${imageMargin}px`;
+for (let i in categoryNum) {
+  categorySelect.innerHTML += `<div style="margin-top: 10px;"><label><input type="checkbox" class="category" 
+  style="margin-right: 10px;" name="${i}">${i}</span></label></div>`
+}
+const category = document.getElementsByClassName("category");
 for (let i of category) {
   i.checked = true;
 }

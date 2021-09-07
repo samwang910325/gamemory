@@ -2,9 +2,9 @@ from PIL import Image
 import os
 
 path_from = "temp/"
-path_to = "sport/"
+path_to = "school/"
 allfile = os.listdir(path_from)
-count = 53
+count = 0
 for i in range(len(allfile)):
     try:
         img = Image.open(path_from + allfile[i])
