@@ -60,8 +60,8 @@ recallCurrentImage.width = bigImageSize;
 recallCurrentImage.style.border = unfocusBorderStyle;
 recallCurrentImage.style.margin = `${imageMargin}px`;
 for (let i in categoryNum) {
-  categorySelect.innerHTML += `<div style="margin-top: 10px;"><label><input type="checkbox" class="category" 
-  style="margin-right: 10px;" name="${i}">${i}</span></label></div>`
+  categorySelect.innerHTML += `<div style="margin-top: 10px; display: inline-block"><label><input type="checkbox" class="category" 
+  style="margin-right: 10px;" name="${i}">${i}</label></div><br>`;
 }
 const category = document.getElementsByClassName("category");
 for (let i of category) {
