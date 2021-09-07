@@ -3,7 +3,7 @@ import os
 allfile = os.listdir("./")
 allfile.sort()
 output = ""
-skip = ["blank.jpg", "cut.py", "duplicate.py", "count.py", "temp", ".DS_Store"]
+skip = ["blank.jpg", "temp", ".DS_Store"]
 for file in allfile:
     if file in skip:
         continue

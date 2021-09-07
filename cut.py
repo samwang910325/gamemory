@@ -1,8 +1,8 @@
 from PIL import Image
 import os
 
-path_from = "temp/"
-path_to = "school/"
+path_from = "pic/temp/"
+path_to = "pic/school/"
 allfile = os.listdir(path_from)
 count = 0
 for i in range(len(allfile)):
