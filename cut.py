@@ -2,7 +2,7 @@ from PIL import Image
 import os
 
 path_from = "pic/temp/"
-path_to = "pic/tool/"
+path_to = "pic/people/"
 allfile = os.listdir(path_from)
 count = int(os.popen("ls " + path_to + " | wc -l").read())
 for i in range(len(allfile)):

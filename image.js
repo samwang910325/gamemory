@@ -3,9 +3,10 @@ const categoryNum = {
   festival: 46,
   food: 376,
   landscape: 100,
+  people: 59,
   school: 52,
   sport: 104,
-  tool: 54,
+  tool: 96,
   transportation: 104
 };
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
@@ -61,7 +62,7 @@ recallCurrentImage.style.border = unfocusBorderStyle;
 recallCurrentImage.style.margin = `${imageMargin}px`;
 for (let i in categoryNum) {
   categorySelect.innerHTML += `<div style="margin-top: 10px; display: inline-block"><label><input type="checkbox" class="category" 
-  style="margin-right: 10px;" name="${i}">${i}</label></div><br>`;
+  style="margin-right: 10px;" name="${i}">${i} (${categoryNum[i]})</label></div><br>`;
 }
 const category = document.getElementsByClassName("category");
 for (let i of category) {
