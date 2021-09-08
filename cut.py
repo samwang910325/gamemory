@@ -2,9 +2,9 @@ from PIL import Image
 import os
 
 path_from = "pic/temp/"
-path_to = "pic/people/"
+path_to = "pic/" + input("category: ") + "/"
 allfile = os.listdir(path_from)
-count = int(os.popen("ls " + path_to + " | wc -l").read())
+count = len(os.listdir(path_to))
 for i in range(len(allfile)):
     try:
         img = Image.open(path_from + allfile[i])

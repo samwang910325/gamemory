@@ -3,8 +3,8 @@ import imagehash
 import os
 
 seen = {}
-path = "pic/people/"
-total = int(os.popen("ls " + path + " | wc -l").read())
+path = "pic/" + input("category: ") + "/"
+total = len(os.listdir(path))
 i = 0
 while i < total:
     h = imagehash.phash(Image.open(path + str(i) + ".jpg"))
