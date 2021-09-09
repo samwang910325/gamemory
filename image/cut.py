@@ -4,7 +4,11 @@ import os
 path_from = "pic/temp/"
 path_to = "pic/" + input("category: ") + "/"
 allfile = os.listdir(path_from)
-count = len(os.listdir(path_to))
+l = os.listdir(path_to)
+count = len(l)
+for i in l:
+    if i[-4:] != ".jpg":
+        count -= 1
 for i in range(len(allfile)):
     try:
         img = Image.open(path_from + allfile[i])

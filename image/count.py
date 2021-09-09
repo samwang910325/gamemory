@@ -9,7 +9,11 @@ print("const categoryNum = {")
 for i in range(len(allfile)):
     if allfile[i] in skip:
         continue
-    c = len(os.listdir(path + allfile[i]))
+    l = os.listdir(path + allfile[i])
+    c = len(l)
+    for j in l:
+        if j[-4:] != ".jpg":
+            c -= 1
     output += "  " + allfile[i] + ": " + str(c)
     if i != len(allfile) - 1:
         output += ",\n"

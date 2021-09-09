@@ -4,8 +4,8 @@ const categoryNum = {
   food: 376,
   landscape: 100,
   people: 59,
-  school: 53,
-  sport: 105,
-  tool: 97,
+  school: 52,
+  sport: 104,
+  tool: 96,
   transportation: 104
 };
