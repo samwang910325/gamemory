@@ -4,7 +4,11 @@ import os
 
 seen = {}
 path = "pic/" + input("category: ") + "/"
+images = os.listdir(path)
 total = len(os.listdir(path))
+for i in images:
+    if i[-4:] != ".jpg":
+        total -= 1
 i = 0
 while i < total:
     h = imagehash.phash(Image.open(path + str(i) + ".jpg"))

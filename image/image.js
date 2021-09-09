@@ -1,14 +1,3 @@
-const categoryNum = {
-  animal: 206,
-  festival: 46,
-  food: 376,
-  landscape: 100,
-  people: 59,
-  school: 52,
-  sport: 104,
-  tool: 96,
-  transportation: 104
-};
 const input = [document.getElementById("image-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
@@ -17,15 +6,15 @@ const countBlock = document.getElementById("count-block");
 const countText = document.getElementById("count-text");
 const skipButton = document.getElementById("skip-button");
 const memorizeBlock = document.getElementById("memorize-block");
-const memorizeCurrentImageNum = document.getElementById("memorize-current-image-num");
 const memorizeCurrentImage = document.getElementById("memorize-current-image");
+const memorizeCurrentImageNum = document.getElementById("memorize-current-image-num");
 const allImages = document.getElementById("all-images");
 const recallBlock = document.getElementById("recall-block");
 const selectTo = document.getElementById("select-to");
 const selectFrom = document.getElementById("select-from");
 const recallCurrentImage = document.getElementById("recall-current-image");
 const resultBlock = document.getElementById("result-block");
-const resultImage = document.getElementById("result-image");
+const resultImages = document.getElementById("result-images");
 const resultInformation = document.getElementById("result-information");
 const retryButton = document.getElementById("retry-button");
 const bigImageSize = 330;
@@ -274,10 +263,10 @@ function recalling() {
 function result() {
   resultBlock.style.display = "flex";
   var i;
-  resultImage.innerHTML = "";
+  resultImages.innerHTML = "";
   for (i = 0; i < imageNum; i++) {
     let s = `${images[imagesTo[i].userOrder]}`;
-    resultImage.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px;display: inline-block; text-align: center"><img src=${images[i]} 
+    resultImages.innerHTML += `<div style="height: ${mediumImageSize * 2.5}px; display: inline-block; text-align: center"><img src=${images[i]} 
     alt="error" height="${mediumImageSize}" width="${mediumImageSize}" style="margin: ${imageMargin}px; border: ${unfocusBorderStyle}">
     <br><img src=${imagesTo[i].userOrder == undefined ? blank : s} alt="error" height="${mediumImageSize}" width="${mediumImageSize}" 
     style="margin: ${imageMargin}px; border: ${imagesTo[i].userOrder == i ? focusBorderStyle : wrongBorderStyle}"><br>${i + 1}</div>`;
