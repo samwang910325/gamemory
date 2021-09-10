@@ -1,4 +1,4 @@
-const input = [document.getElementById("name-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
+const input = [document.getElementById("person-num"), document.getElementById("memorize-time"), document.getElementById("recall-time")]
 const inputBlock = document.getElementById("input-block");
 const startButton = document.getElementById("start-button");
 const countBlock = document.getElementById("count-block");
@@ -10,6 +10,7 @@ const memorizeCurrentName = document.getElementById("memorize-current-name");
 const allFaces = document.getElementById("all-faces");
 const recallBlock = document.getElementById("recall-block");
 const recallPersons = document.getElementById("recall-persons");
+const recallHelp = document.getElementById("recall-help");
 const resultBlock = document.getElementById("result-block");
 const resultPersons = document.getElementById("result-persons");
 const resultInformation = document.getElementById("result-information");
@@ -33,6 +34,7 @@ var names;
 var memorizeCurr;
 var memorizeFaces;
 var recallNames;
+var recallCurr;
 var showOrder;
 memorizeCurrentFace.height = bigImageSize;
 memorizeCurrentFace.width = bigImageSize;
@@ -147,19 +149,19 @@ function memorizing() {
     switch (e.code) {
       case "ArrowUp":
         e.preventDefault();
-        firstImage();
+        firstPerson();
         break;
       case "ArrowDown":
         e.preventDefault();
-        lastImage();
+        lastPerson();
         break;
       case "ArrowLeft":
         e.preventDefault();
-        prevImage();
+        prevPerson();
         break;
       case "ArrowRight":
         e.preventDefault();
-        nextImage();
+        nextPerson();
         break;
       case "Enter":
         skipButton.onclick();
@@ -198,17 +200,33 @@ function recallCountDown(t) {
   for (let i = 0; i < personNum; i++) {
     recallPersons.innerHTML += `<div style="text-align: center; display: inline-block;"><img src=${faces[showOrder[i]]} 
     alt="error" height="${mediumImageSize}" width="${mediumImageSize}" style="margin: 0px ${imageMargin}px; 
-    border: ${unfocusBorderStyle}"><br><input id="${showOrder[i]}-name" class="recall-input" type="text" style="width: 
-    ${mediumImageSize}px; margin-bottom: 20px;"></div>`;
+    border: ${unfocusBorderStyle}"><br><input id="${showOrder[i]}-name" name="${i}-name" class="recall-input" type="text" 
+    style="width: ${mediumImageSize}px;" onclick="recallFocus(parseInt(this.name));"></div>`;
   }
   recallNames = [];
   for (let i = 0; i < personNum; i++) {
     recallNames.push(document.getElementById(`${i}-name`));
   }
   recallCurr = 0;
+  var helpOrder = [];
+  for (let i = 0; i < personNum; i++) {
+    helpOrder.push(i);
+  }
+  for (let i = 0; i < personNum - 1; i++) {
+    let j = i + Math.floor(Math.random() * (personNum - i));
+    let temp = helpOrder[i];
+    helpOrder[i] = helpOrder[j];
+    helpOrder[j] = temp;
+  }
+  recallHelp.innerHTML = "";
+  for (let i = 0; i < personNum; i++) {
+    recallHelp.innerHTML += `<button style="margin: 0px 5px 20px; background-color: white; 
+    border: 2px solid black;" onclick="recallClickHelp(this.innerHTML);">${names[helpOrder[i]]}</button>`;
+  }
 }
 function recalling() {
   recallBlock.style.display = "";
+  recallHelp.style.display = "none";
   countText.innerHTML = `time left: ${recallTime--} s`;
   skipButton.onclick = function () {
     recallBlock.style.display = "none";
@@ -261,21 +279,21 @@ function memorizeFocus(p) {
   p.height = smallImageSize;
   p.width = smallImageSize;
 }
-function firstImage() {
+function firstPerson() {
   memorizeUnfocus(memorizeFaces[memorizeCurr]);
   memorizeFocus(memorizeFaces[0]);
   memorizeCurrentFace.src = memorizeFaces[0].src;
   memorizeCurr = 0;
   memorizeCurrentName.innerHTML = names[memorizeCurr];
 }
-function lastImage() {
+function lastPerson() {
   memorizeUnfocus(memorizeFaces[memorizeCurr]);
   memorizeFocus(memorizeFaces[personNum - 1]);
   memorizeCurrentFace.src = memorizeFaces[personNum - 1].src;
   memorizeCurr = personNum - 1;
   memorizeCurrentName.innerHTML = names[memorizeCurr];
 }
-function prevImage() {
+function prevPerson() {
   if (memorizeCurr == 0) {
     return;
   }
@@ -284,7 +302,7 @@ function prevImage() {
   memorizeCurrentFace.src = memorizeFaces[memorizeCurr].src;
   memorizeCurrentName.innerHTML = names[memorizeCurr];
 }
-function nextImage() {
+function nextPerson() {
   if (memorizeCurr == personNum - 1) {
     return;
   }
@@ -299,4 +317,39 @@ function memorizeChooseFace(i) {
   memorizeFocus(memorizeFaces[memorizeCurr]);
   memorizeCurrentFace.src = memorizeFaces[memorizeCurr].src;
   memorizeCurrentName.innerHTML = names[memorizeCurr];
+}
+function helpButtonClick() {
+  if (recallHelp.style.display == "none") {
+    recallHelp.style.display = "inline-block";
+    recallNames[showOrder[recallCurr]].style.border = focusBorderStyle;
+  }
+  else {
+    recallHelp.style.display = "none";
+    recallNames[showOrder[recallCurr]].style.border = unfocusBorderStyle;
+  }
+}
+function recallClickHelp(v) {
+  recallNames[showOrder[recallCurr]].value = v;
+  var original = recallCurr;
+  while (recallCurr < personNum && recallNames[showOrder[recallCurr]].value) {
+    recallCurr++;
+  }
+  if (recallCurr == personNum) {
+    recallCurr = 0;
+    while (recallCurr < personNum && recallNames[showOrder[recallCurr]].value) {
+      recallCurr++;
+    }
+  }
+  if (recallCurr == personNum) {
+    recallCurr = original;
+  }
+  recallNames[showOrder[original]].style.border = unfocusBorderStyle;
+  recallNames[showOrder[recallCurr]].style.border = focusBorderStyle;
+}
+function recallFocus(i) {
+  recallNames[showOrder[recallCurr]].style.border = unfocusBorderStyle;
+  recallCurr = i;
+  if (recallHelp.style.display == "inline-block") {
+    recallNames[showOrder[recallCurr]].style.border = focusBorderStyle;
+  }
 }
